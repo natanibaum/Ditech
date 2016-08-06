@@ -1,0 +1,33 @@
+.bg-danger, .bg-success {
+	padding: 0 5px;
+}
+
+a {
+	color: #f15a24;
+	text-decoration: none;
+}
+a:hover{
+	color: #f15a24;
+	text-decoration: none;
+	font-weight:bold;
+}
+.form{
+ background-color:#FFF;
+ border-radius:5px;
+}
+body{
+ background-color: #000;
+}
+h4{
+	color: #f15a24;
+	font-weight:bold;
+}
+.color-green{ 
+			color:green;
+			font-weight:italic;
+			
+}
+.color-red{ color:red; 
+			font-weight:italic;
+			font-size:14px;
+			}

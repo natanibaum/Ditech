@@ -17,16 +17,30 @@ class USUARIO{
 		$stmt = $this->conn->prepare($sql);
 		return $stmt;
 	}
-	//Função que valida se o usuario existe
-	private function validaUsuario($usuario){
+	//Método privado da própria classe que valida se o usuario existe
+	public function validaUsuario($usuario){
 		$stmt = $this->rodaQuery("SELECT nomeUsuario FROM Usuario WHERE nomeUsuario = :user");
 		$stmt->execute(array(':user' => $usuario));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!empty($row['nomeUsuario'])){
-		 return true;
+			return true;
 		}
 		
 	}
+	//Método privado da própria classe que valida se o login do usuário
+	public function validaLogin($usuario,$senha){
+		$stmt = $this->rodaQuery('SELECT nomeUsuario,id FROM Usuario WHERE nomeUsuario = :user And senha = :senha And ativo="Sim"');
+		$stmt->execute(array(':user' => $usuario, ':senha'=> $senha));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if(!empty($row['nomeUsuario'])){
+			$_SESSION['usuario'] = $row['nomeUsuario'];
+			$_SESSION['memberID'] = $row['id'];
+			$_SESSION['loggedin'] = true;
+			return true;
+		}
+		
+	}
+	//Método Cadastra o usuário no banco
 	public function InsereUsuario($username,$senha,$ativo){
 		if($this->validaUsuario($username)){
 			header('Location: /ditech/cadastro.php?action=falha');
@@ -46,33 +60,12 @@ class USUARIO{
 	 }
 	}
 
-	public function login($username,$senha){
-
-	try
-		{
-			$stmt = $this->rodaQuery('SELECT nomeUsuario FROM Usuario WHERE nomeUsuario =:unome AND senha =:usenha ');
-			$stmt->execute(array(':unome'=>$username, ':usenha'=>$senha));
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-				if(!empty($row['nomeUsuario']))
-				{		
-						$_SESSION['loggedin'] = true;
-						$_SESSION['usuario'] = $row['nomeUsuario'];
-						return true;
-				}
-				else{
-						header('Location: /ditech/index.php?action=falhaLogin');
-						return false;
-				}
-		}
-		catch(PDOException $e)
-		{
-			echo $e->getMessage();
-		}
-	}
-
-	
+//Função logoff
 	public function logout(){
+		session_start();
 		session_destroy();
+		unset($_SESSION['usuario']);
+		return true;
 	}
 
 	public function logado(){

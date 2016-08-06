@@ -5,13 +5,13 @@ require_once('usuario.php');
 $usuario = new USUARIO();
 
 //Processo de efetuação do login
-if(isset($_POST['submit'])){
+if(isset($_POST['btn-login'])){
 	$user = $_POST['usuario'];
 	$senha = $_POST['senha'];
 	//Instancia o método da classe usuário para validar o login
-	if($usuario->login($user,$senha)){ 
-	    $_SESSION['usuario'] = $user;
-		header('Location: memberpage.php');
+	if($usuario->validaLogin($user,$senha)){ 
+		$_SESSION['usuario']= $user;
+		header('Location: perfil.php');
 		exit;
 	
 	}
@@ -21,7 +21,7 @@ if(isset($_POST['submit'])){
 
 $title = 'Ditech | Login';
 
-//include header template
+//inclui cabeçalho
 require('layout/header.php'); 
 ?>
 
@@ -31,7 +31,7 @@ require('layout/header.php');
 	<div class="row">
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
-			<form role="form" method="post" action="" autocomplete="off">
+			<form role="form" method="POST" action="" autocomplete="off">
 				<h4>Sistema de Reservas | Login</h4><br>
 				<p>Você não possui usuário cadastrado? <a href='cadastro.php'>Cadastre-se já!</a></p>
 				<hr>
@@ -48,7 +48,7 @@ require('layout/header.php');
 				?>
 
 				<div class="form-group">
-					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário" value="<?php if(isset($error)){ echo $_POST['usuario']; } ?>" tabindex="1">
+					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário" tabindex="1">
 				</div>
 
 				<div class="form-group">
@@ -56,7 +56,7 @@ require('layout/header.php');
 				</div>
 				<hr>
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Efetuar Login" class="btn btn-warning btn-block btn-lg" tabindex="5"></div>
+					<div class="col-xs-6 col-md-6"><input type="submit" name="btn-login" value="Efetuar Login" class="btn btn-warning btn-block btn-lg" tabindex="5"></div>
 				</div><br>
 			</form>
 		</div>

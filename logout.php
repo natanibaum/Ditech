@@ -1,5 +1,5 @@
 <?php 
-require('usuario.php');
+require('classes/usuario.php');
 $usuario = new USUARIO();
 
 //logout

@@ -29,12 +29,12 @@ class RESERVA{
 				':hrid'=>$hrid
 				
 			));
-			 echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/perfil.php?action=reservaok'</script>";
+			 return true;
 		}catch(PDOException $e) {
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }
-	 	//Método deleta
+	 	//Método deleta reserva
 	public function ExcluiReserva($id){
 		try {	
 			$stmt = $this->rodaQuery('Delete from Reserva where id = :id');
@@ -46,6 +46,24 @@ class RESERVA{
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }
+	 //Método public que busca todas os horarios disponiveis
+	 public function buscaHorariosDisponiveis($salaid){
+		 	try {
+			$stmt = $this->rodaQuery("SELECT h.id,h.hr_ini,h.hr_fim
+									FROM Horario h
+									WHERE NOT EXISTS (SELECT * FROM  Reserva r,Salas s
+													  WHERE h.id = r.hr_id 
+													  And s.id=r.sala_id
+													  And s.id='$salaid')
+											");
+			$stmt->execute();
+			return $stmt->fetchAll();	
+
+		} catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	 }
+
 
 
 

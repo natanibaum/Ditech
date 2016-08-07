@@ -1,9 +1,7 @@
 <?php 
 require('includes/config.php');
-require_once('usuario.php');
+require_once('classes/usuario.php');
 $usuario = new USUARIO();
-
-
 //Processo do formulário enviado
 if(isset($_POST['submit'])){
 	
@@ -12,7 +10,7 @@ if(isset($_POST['submit'])){
 		$senha=$_POST['senha'];
 		$senhaC=$_POST['senhaConfirma'];
 	   if((empty($user))or (empty($senha)) or (empty ($senhaC)) or ($senha != $senhaC)){
-		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/cadastro.php?action=erro'</script>";
+		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/cadastro-usuario.php?action=erro'</script>";
 		}
 		else{
 	//se estiver todo o formulário preenchido, efetua o cadastro

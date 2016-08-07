@@ -43,7 +43,7 @@ class USUARIO{
 	//Método Cadastra o usuário no banco
 	public function InsereUsuario($username,$senha,$ativo){
 		if($this->validaUsuario($username)){
-			header('Location: /ditech/cadastro.php?action=falha');
+			header('Location: /ditech/cadastro-usuario.php?action=falha');
 		}
 		else{
 		try {	
@@ -84,6 +84,18 @@ class USUARIO{
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }
+	 //Método que popula usuario para edições
+	 public function Usuario($id){
+		 	try {
+			$stmt = $this->rodaQuery("SELECT id,nomeUsuario,senha FROM Usuario where id = :id");
+			$stmt->execute(array(':id' => $id));
+			return $stmt->fetch(PDO::FETCH_ASSOC);	
+
+		} catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	 }
+	 //Desativa o usuário e deleta as reservas que ele possui.
 	 public function ExcluiUsuario($id){
 		$this->RetiraReservas($id);
 		try {	

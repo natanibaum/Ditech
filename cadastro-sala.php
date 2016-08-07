@@ -1,6 +1,6 @@
 <?php
 require('includes/config.php');
-require_once('sala.php');
+require_once('classes/sala.php');
 $sala = new SALA();
 	
 		$nome = $_POST['nome'];

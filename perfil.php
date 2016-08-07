@@ -1,6 +1,6 @@
 <?php 
 require('includes/config.php'); 
-require_once('usuario.php');
+require_once('classes/usuario.php');
 $usuario = new USUARIO();
 session_start();
 //Se o usuário não estiver logado
@@ -17,7 +17,7 @@ require('layout/header.php');
 
 <div class="container form">
   <h4>Ditech :. Sistema de Reservas .:</h4><br>
-  <a href='logout.php'>Sair do Sistema</a><br><br>
+  <a href='logout.php'><span class="glyphicon glyphicon-log-out"></span> Sair do Sistema</a><br><br>
 <?php
 				//Se houver erros
 				if(isset($_GET['action']) && $_GET['action'] == 'salaExiste'){
@@ -37,13 +37,13 @@ require('layout/header.php');
 					echo "<h5 class='bg-success color-green'>A sala foi atualizada com sucesso!</h5>";
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'reservaok'){
-					echo "<h5 class='bg-success color-green'>A sala reservada com sucesso!</h5>";
+					echo "<h5 class='bg-success color-green'>A sala foi reservada no horário escolhido com sucesso!</h5>";
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'deleteFeitoSala'){
 					echo "<h5 class='bg-success color-green'>A sala foi excluída com sucesso!</h5>";
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'deleteFeitoReserva'){
-					echo "<h5 class='bg-success color-green'>A sala foi excluída com sucesso!</h5>";
+					echo "<h5 class='bg-success color-green'>A reserva foi excluída com sucesso!</h5>";
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'upFeitoPessoa'){
 					echo "<h5 class='bg-success color-green'>Usuário atualizado com sucesso!</h5>";
@@ -64,8 +64,9 @@ require('layout/header.php');
       <?php include('salas-indisponiveis.php');?>
     </div>
     <div id="menu2" class="tab-pane fade">
-	  <h4>Cadastro de Salas</h4>
 	   <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
+	   <h3>Cadastro de Salas</h3>
+	   <br>
          <p>Cadastre as salas de reuniões da sua empresa.</p>
 			<form  role="form" method="post" action="cadastro-sala.php" autocomplete="off">
 				<hr>
@@ -88,12 +89,12 @@ require('layout/header.php');
     <div id="menu3" class="tab-pane fade">
       <h3>Edições de Salas</h3>
 	  <br>
-		<?php include('view-salas.php');?>
+		<?php include('salas-cadastradas.php');?>
     </div>
 	 <div id="menu4" class="tab-pane fade">
       <h3>Edição de Usuário</h3>
 	  <br>
-		<?php include('config-usuario.php');?>
+		<?php include('edicao-usuario.php');?>
     </div>
   </div>
 </div>

@@ -1,13 +1,10 @@
 <?php
 require_once('includes/config.php');
-require_once('sala.php');
+require_once('classes/sala.php');
 $sala= new SALA();
 $id = $_POST['id'];
-$database = new Database();
-$db = $database->dbConnection();
-		$stmt = $db->prepare("SELECT id,nome,numero FROM Salas where id = :id");
-		$stmt->execute(array(':id' => $id));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);	
+//método popula sala para edições
+$row = $sala->Sala($id);	
 
 //Processo de update
 if(isset($_POST['btn-edita'])){

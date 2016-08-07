@@ -1,13 +1,10 @@
 <?php
 require_once('includes/config.php');
-require_once('usuario.php');
+require_once('classes/usuario.php');
 $usuario= new Usuario();
 $id = $_POST['id'];
-$database = new Database();
-$db = $database->dbConnection();
-		$stmt = $db->prepare("SELECT id,nomeUsuario,senha FROM Usuario where id = :id");
-		$stmt->execute(array(':id' => $id));
-		$row = $stmt->fetch(PDO::FETCH_ASSOC);	
+//Método da classe usuario popula Usuário para edição 
+$row = $usuario->Usuario($id);	
 
 //Processo de update
 if(isset($_POST['btn-edita'])){

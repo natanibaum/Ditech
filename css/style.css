@@ -7,7 +7,11 @@ a {
 	text-decoration: none;
 }
 
-
+h3 {
+	color: #f15a24;
+	font-weight:italic;
+	text-decoration: none;
+}
 
 a:hover{
 	color: #f15a24;

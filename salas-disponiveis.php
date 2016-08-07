@@ -1,24 +1,16 @@
 <?php
 require_once('includes/config.php');
-
+require_once('classes/sala.php');
+require_once('classes/reserva.php');
+$sala = new SALA();
+$reserva= new Reserva();
 $database = new Database();
-$conn = $database->dbConnection();
-$valida =0;
-
-	//querie Salas disponiveis
-		$stmt = $conn->prepare("SELECT id,nome,numero 
-								FROM Salas;");
-		$stmt->execute();
-		$resultado = $stmt->fetchAll();	
-		//querie popula id usuario
+		//Popula variavel com o id do usuário que está na sessão
 		$userid= $_SESSION['id'];
-		$user = $conn->prepare("SELECT id FROM Usuario where id = :id");
-		$user->execute(array(':id' => $userid));
-		$row_user = $user->fetch(PDO::FETCH_ASSOC);
-		
+		$resultado = $sala->buscaSalasDisponiveis();	
 		echo"
 			<table width='30%' class='table table-striped'>
-			<thead><hr>
+			<thead>
 			  <tr>
 				<th><h2 style='color:green;'>Salas Disponíveis </h2></th>
 			  </tr>
@@ -26,33 +18,30 @@ $valida =0;
 			<tbody>
 			<tr>
 			 ";
+		//Coleção das salas disponiveis
 		foreach($resultado as $row)
 		{	 
-			$valida=1;
 			$salaid=$row['id'];
 			echo"<tr>
 				<td>
 				";
 			echo "<h4>".$row['nome']."</h4>";
 		    echo "<h4>Nº: ".$row['numero']."</h4>";
-			echo"</td>
-				";
-				//query horarios
-				$hr = $conn->prepare("
-								SELECT h.id,h.hr_ini,h.hr_fim
-								FROM Horario h
-								WHERE NOT EXISTS (SELECT * FROM  Reserva r,Salas s
-												  WHERE h.id = r.hr_id 
-												  And s.id=r.sala_id
-												  And s.id='$salaid'
-													);");
-				$hr->execute();
-				$row_hr= $hr->fetchAll();
+			
+				//Instancia do método da classe reserva que retorna todos os horários disponiveis por sala
+				$row_hr= $reserva->buscaHorariosDisponiveis($salaid);
+				if(empty($row_hr)){
+						echo"<p class='bg-danger color-red'>Não há horários disponíveis para esta sala.</p>";
+						}
+					echo"</td>
+						";
+				//coleçao dos horarios disponiveis
 				foreach($row_hr as $h)
-				{	echo"<form method='Post'  action='cadastra-reserva.php'>";
+				{
+					echo"<form method='Post'  action='cadastra-reserva.php'>";
 					echo"<input name='idhr' id=idhr' type='hidden' value=". $h['id'].">";
 					echo"<input name='hr_ini' id='hr_ini' type='hidden' value=". $h['hr_ini'].">";
-					echo"<input name='user' id=user' type='hidden' value=". $row_user['id'].">";
+					echo"<input name='user' id=user' type='hidden' value=". $userid.">";
 					echo "<input name='sala' id=idsala' type='hidden' value=". $row['id'].">";
 					echo "<th>";
 					echo $h['hr_ini']; 
@@ -62,13 +51,11 @@ $valida =0;
 					echo "</th>";
 				 echo"</form>";	
 					
-				}
+				}	
 				echo"</tr>
-				";	  
+				";			
 		}
-		if($valida!=1){
-			echo"<p class='bg-danger color-red'>Não há salas disponíveis!</p>";
-		}
+		
 		 echo"
 			</tr>
 			</tbody>

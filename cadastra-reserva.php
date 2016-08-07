@@ -1,6 +1,6 @@
 <?php
 require('includes/config.php');
-require_once('reserva.php');
+require_once('classes/reserva.php');
 $reserva= new RESERVA();
 	
 		$salaid = $_POST['sala'];
@@ -8,6 +8,8 @@ $reserva= new RESERVA();
 		$hrini = $_POST['hr_ini'];
 		$userid = $_POST['user'];
 	//Função insere a reserva
-	$reserva->InsereReserva($userid,$salaid,$hrini,$idhr);	
+	if($reserva->InsereReserva($userid,$salaid,$hrini,$idhr)){
+		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/perfil.php?action=reservaok'</script>";
+	}	
 
 ?>

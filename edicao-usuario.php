@@ -1,15 +1,10 @@
 <?php
 require_once('includes/config.php');
-
-$database = new Database();
-$conn = $database->dbConnection();
-$valida =0;
-
+require_once('classes/usuario.php');
+$usuario=new Usuario();
 	  //querie popula  usuario
 		$idu= $_SESSION['id'];
-		$user = $conn->prepare("SELECT id,nomeUsuario FROM Usuario where id = :nome");
-		$user->execute(array(':nome' => $idu));
-		$row_user = $user->fetch(PDO::FETCH_ASSOC);
+		$row_user = $usuario->Usuario($idu);
 		echo"
 			<table width='50%' class='table table-striped'>
 			<thead>

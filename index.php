@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('includes/config.php');
-require_once('usuario.php');
+require_once('classes/usuario.php');
 $usuario = new USUARIO();
 
 //Processo de efetuação do login
@@ -37,7 +37,7 @@ require('layout/header.php');
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
 			<form role="form" method="POST" action="" autocomplete="off">
 				<h4>Sistema de Reservas | Login</h4><br>
-				<p>Você não possui usuário cadastrado? <a href='cadastro.php'>Cadastre-se já!</a></p>
+				<p>Você não possui usuário cadastrado? <a href='cadastro-usuario.php'>Cadastre-se já!</a></p>
 				<hr>
 
 				<?php

@@ -1,14 +1,10 @@
 <?php
 require_once('includes/config.php');
-
-$database = new Database();
-$conn = $database->dbConnection();
-$valida =0;
-
-
-		$stmt = $conn->prepare("SELECT id,nome,numero FROM Salas");
-		$stmt->execute();
-		$resultado = $stmt->fetchAll();	
+require_once('classes/sala.php');
+$salas = new SALA();
+$valida=0;
+		//Método publico da classe sala que retorna a query
+		$resultado = $salas->buscaSalasDisponiveis();
 		echo"
 			<table width='50%' class='table table-striped'>
 			<thead>
@@ -19,6 +15,7 @@ $valida =0;
 			<tbody>
 			<tr>
 			 ";
+		//Coleções de todas as salas trazidas na query da classe SALA.
 		foreach($resultado as $row)
 		{
 			$valida=1;

@@ -1,3 +1,9 @@
+drop table Reserva;
+drop table  Usuario;
+drop table Horario;
+drop table Salas;
+Create database ditech;
+Use ditech;
 CREATE TABLE `Usuario` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `nomeUsuario` varchar(255) NOT NULL,

@@ -34,7 +34,13 @@ require('layout/header.php');
 				if(isset($_GET['action']) && $_GET['action'] == 'upFeitoSala'){
 					echo "<h5 class='bg-success color-green'>A sala foi atualizada com sucesso!</h5>";
 				}
+				if(isset($_GET['action']) && $_GET['action'] == 'reservaok'){
+					echo "<h5 class='bg-success color-green'>A sala reservada com sucesso!</h5>";
+				}
 				if(isset($_GET['action']) && $_GET['action'] == 'deleteFeitoSala'){
+					echo "<h5 class='bg-success color-green'>A sala foi excluída com sucesso!</h5>";
+				}
+				if(isset($_GET['action']) && $_GET['action'] == 'deleteFeitoReserva'){
 					echo "<h5 class='bg-success color-green'>A sala foi excluída com sucesso!</h5>";
 				}
  ?>
@@ -45,8 +51,8 @@ require('layout/header.php');
   </ul>
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
-      <h3>HOME</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+	  <?php include('salas-disponiveis.php');?>
+      <?php include('salas-indisponiveis.php');?>
     </div>
     <div id="menu2" class="tab-pane fade">
 	  <h4>Cadastro de Salas</h4>

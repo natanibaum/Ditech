@@ -6,10 +6,9 @@ a {
 	color: #f15a24;
 	text-decoration: none;
 }
-th {
-    border: 5px solid transparent;
-    background-clip: padding-box;
-}
+
+
+
 a:hover{
 	color: #f15a24;
 	text-decoration: none;

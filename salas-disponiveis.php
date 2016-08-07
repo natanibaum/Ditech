@@ -11,9 +11,9 @@ $valida =0;
 		$stmt->execute();
 		$resultado = $stmt->fetchAll();	
 		//querie popula id usuario
-		$nome= $_SESSION['usuario'];
-		$user = $conn->prepare("SELECT id FROM Usuario where nomeUsuario = :nome");
-		$user->execute(array(':nome' => $nome));
+		$userid= $_SESSION['id'];
+		$user = $conn->prepare("SELECT id FROM Usuario where id = :id");
+		$user->execute(array(':id' => $userid));
 		$row_user = $user->fetch(PDO::FETCH_ASSOC);
 		
 		echo"
@@ -27,13 +27,12 @@ $valida =0;
 			<tr>
 			 ";
 		foreach($resultado as $row)
-		{	 echo"<form method='Post'  action='cadastra-reserva.php'>";
+		{	 
 			$valida=1;
 			$salaid=$row['id'];
 			echo"<tr>
 				<td>
-				<input name='sala' id=idsala' type='hidden' value=". $row['id'].">";
-			echo"<input name='user' id=user' type='hidden' value=". $row_user['id'].">";
+				";
 			echo "<h4>".$row['nome']."</h4>";
 		    echo "<h4>Nº: ".$row['numero']."</h4>";
 			echo"</td>
@@ -53,6 +52,8 @@ $valida =0;
 				{	echo"<form method='Post'  action='cadastra-reserva.php'>";
 					echo"<input name='idhr' id=idhr' type='hidden' value=". $h['id'].">";
 					echo"<input name='hr_ini' id='hr_ini' type='hidden' value=". $h['hr_ini'].">";
+					echo"<input name='user' id=user' type='hidden' value=". $row_user['id'].">";
+					echo "<input name='sala' id=idsala' type='hidden' value=". $row['id'].">";
 					echo "<th>";
 					echo $h['hr_ini']; 
 					echo"<br>";
@@ -63,7 +64,7 @@ $valida =0;
 					
 				}
 				echo"</tr>
-				</form>";	  
+				";	  
 		}
 		if($valida!=1){
 			echo"<p class='bg-danger color-red'>Não há salas disponíveis!</p>";

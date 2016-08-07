@@ -22,7 +22,7 @@ $valida =0;
 		foreach($resultado as $row)
 		{
 			$valida=1;
-			echo"<form method='Post'  action='edita-usuario.php'>
+			echo"<form method='Post'  action='edita-sala.php'>
 				<tr>
 				<td>
 				<input name='id' id=id' type='hidden' value=". $row['id'].">";
@@ -34,7 +34,7 @@ $valida =0;
 			echo"</td>
 				<td><button type='submit' class='btn btn-warning'>Editar</button></td>
 				</form>
-				<form method='Post' action='deleta-usuario.php'>
+				<form method='Post' action='deleta-sala.php'>
 				<input name='id' id=id' type='hidden' value=". $row['id'].">
 				<td><button type='submit' class='btn btn-danger'>Excluir</button></td>
 				</form>

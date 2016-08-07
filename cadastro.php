@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
 		$user=$_POST['usuario'];
 		$senha=$_POST['senha'];
 		$senhaC=$_POST['senhaConfirma'];
-	   if((empty($user))or (empty($senha)) or (empty ($senhaC))){
+	   if((empty($user))or (empty($senha)) or (empty ($senhaC)) or ($senha != $senhaC)){
 		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/cadastro.php?action=erro'</script>";
 		}
 		else{
@@ -44,7 +44,7 @@ require('layout/header.php');
 					echo "<h5 class='bg-danger color-red'>O usuário informado já está cadastrado!</h5>";
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'erro'){
-					echo "<h5 class='bg-danger color-red'>Favor, preencha os campos!</h5>";
+					echo "<h5 class='bg-danger color-red'>Favor, preencha os campos corretamente! Lembrando que as senhas devem ser iguais.</h5>";
 				}
 				?>
 

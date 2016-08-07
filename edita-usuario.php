@@ -24,7 +24,7 @@ if(isset($_POST['btn-edita'])){
 }
 
 
-$title = 'Ditech | Edição Sala';
+$title = 'Ditech | Edição de Usuário';
 
 //inclui cabeçalho
 require('layout/header.php'); 
@@ -37,22 +37,22 @@ require('layout/header.php');
 
 	   <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
 	   <br>
-         <h4>Edição de Sala</h4>
+         <h4>Edição de 	Usuário</h4>
 			<form  role="form" method="post" action="" autocomplete="off">
 				<hr>
 				<input name='id' type='hidden' value="<?php echo $row['id'];?>">
 				<div class="form-group">
-					<input type="text" name="nome" id="nome"  value="<?php echo $row['nomeUsuario']; ?>"class="form-control input-lg" placeholder="Nome da Sala" tabindex="1">
+					<input type="text" name="nome" id="nome"  value="<?php echo $row['nomeUsuario']; ?>"class="form-control input-lg" placeholder="Nome do Usuario" tabindex="1">
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="number" name="senha" value="<?php echo $row['senha']; ?>" id="numero" class="form-control input-lg" placeholder="Número da Sala" tabindex="3">
+							<input type="password" name="senha" value="<?php echo $row['senha']; ?>" id="numero" class="form-control input-lg" placeholder="Senha" tabindex="3">
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6 col-md-6"><input type="submit" name="btn-edita" value="Atualizar Sala" class="btn btn-warning btn-block btn-lg" tabindex="5"></div>
+					<div class="col-xs-6 col-md-6"><input type="submit" name="btn-edita" value="Atualizar Usuário" class="btn btn-warning btn-block btn-lg" tabindex="5"></div>
 				</div><br>
 			</form>
 		</div>

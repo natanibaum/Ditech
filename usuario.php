@@ -29,7 +29,7 @@ class USUARIO{
 	}
 	//Método privado da própria classe que valida se o login do usuário
 	public function validaLogin($usuario,$senha){
-		$stmt = $this->rodaQuery('SELECT nomeUsuario,id FROM Usuario WHERE nomeUsuario = :user And senha = :senha And ativo="Sim"');
+		$stmt = $this->rodaQuery('SELECT nomeUsuario,id FROM Usuario WHERE nomeUsuario = :user And senha = :senha And ativo !="Não"');
 		$stmt->execute(array(':user' => $usuario, ':senha'=> $senha));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!empty($row['nomeUsuario'])){
@@ -58,7 +58,7 @@ class USUARIO{
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }
-	}
+	} //Atualiza as informações do usuário
 		public function AtualizaUsuario($nome,$senha,$id){
 		try {	
 			$stmt = $this->rodaQuery('Update Usuario set nomeUsuario = :nome, senha= :senha where id= :id');
@@ -72,7 +72,20 @@ class USUARIO{
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }
+	 //Método que retira as reservas do usuário que será inativado.
+	 private function RetiraReservas($id){
+		  try {	
+			$stmt = $this->rodaQuery('Delete from Reserva  where usuario_id= :id');
+			$stmt->execute(array(
+				':id'=>$id
+			));
+			return true;
+		}catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	 }
 	 public function ExcluiUsuario($id){
+		$this->RetiraReservas($id);
 		try {	
 			$stmt = $this->rodaQuery('Update Usuario set ativo = "Não" where id= :id');
 			$stmt->execute(array(

@@ -31,7 +31,7 @@ require('layout/header.php');
 	<div class="row">
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
-			<form  name="cadastro" role="form" method="post" action=""  autocomplete="off">
+			<form  name="cadastro" id="fcadastro" role="form" method="post" action=""  autocomplete="off" onsubmit="return validaUsuario();">
 				<h4>Sistema de Reservas</h4>
 				<p>Você já possui cadastro? <a href='/ditech/index.php'>Login</a></p>
 				<hr>
@@ -47,17 +47,17 @@ require('layout/header.php');
 				?>
 
 				<div class="form-group">
-					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário" value="<?php if(isset($error)){ echo $_POST['usuario']; } ?>" tabindex="1">
+					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário"  tabindex="1"required>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="password" name="senha" id="senha" class="form-control input-lg" placeholder="Senha" tabindex="3">
+							<input type="password" name="senha" id="senha" class="form-control input-lg" placeholder="Senha" tabindex="3" required>
 						</div>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="password" name="senhaConfirma" id="senhaConfirma" class="form-control input-lg" placeholder="Confirmar Senha" tabindex="4">
+							<input type="password" name="senhaConfirma" id="senhaConfirma" class="form-control input-lg" placeholder="Confirmar Senha" tabindex="4"required>
 						</div>
 					</div>
 				</div>

@@ -35,16 +35,16 @@ require('layout/header.php');
 	   <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
 	   <br>
          <h4>Edição de Sala</h4>
-			<form  role="form" method="post" action="" autocomplete="off">
+			<form  role="form" method="post" action="" name="cadastro" autocomplete="off" onSubmit="return validaSala();">
 				<hr>
 				<input name='id' type='hidden' value="<?php echo $row['id'];?>">
 				<div class="form-group">
-					<input type="text" name="nome" id="nome"  value="<?php echo $row['nome']; ?>"class="form-control input-lg" placeholder="Nome da Sala" tabindex="1">
+					<input type="text" name="nome" id="nome"  value="<?php echo $row['nome']; ?>"class="form-control input-lg" placeholder="Nome da Sala" tabindex="1" required>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="number" name="numero" value="<?php echo $row['numero']; ?>" id="numero" class="form-control input-lg" placeholder="Número da Sala" tabindex="3">
+							<input type="number" name="numero" value="<?php echo $row['numero']; ?>" id="numero" class="form-control input-lg" placeholder="Número da Sala" tabindex="3" required>
 						</div>
 					</div>
 				</div>

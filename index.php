@@ -35,7 +35,7 @@ require('layout/header.php');
 	<div class="row">
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
-			<form role="form" method="POST" action="" autocomplete="off">
+			<form name="login" role="form" method="POST" action="" autocomplete="off" onSubmit="return validaLogin()">
 				<h4>Sistema de Reservas | Login</h4><br>
 				<p>Você não possui usuário cadastrado? <a href='cadastro-usuario.php'>Cadastre-se já!</a></p>
 				<hr>
@@ -44,6 +44,10 @@ require('layout/header.php');
 				//Se ocorrer o falha no login
 				if(isset($_GET['action']) && $_GET['action'] == 'falhaLogin'){
 					echo "<h5 class='bg-danger color-red'>Você precisa preencher o usuário e senha corretamente para fazer o login!</h5>";
+				}
+				//Se ocorrer o falha no login de usuario inativo
+				if(isset($_GET['action']) && $_GET['action'] == 'Inativo'){
+					echo "<h5 class='bg-danger color-red'>O usuário informado está desativado!</h5>";
 				}
 				//Se ocorrer o falha no login
 				if(isset($_GET['action']) && $_GET['action'] == 'errologin'){
@@ -56,11 +60,11 @@ require('layout/header.php');
 				?>
 
 				<div class="form-group">
-					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário" tabindex="1">
+					<input type="text" name="usuario" id="usuario" class="form-control input-lg" placeholder="Usuário" tabindex="1" required>
 				</div>
 
 				<div class="form-group">
-					<input type="password" name="senha" id="senha" class="form-control input-lg" placeholder="Senha" tabindex="3">
+					<input type="password" name="senha" id="senha" class="form-control input-lg" placeholder="Senha" tabindex="3" required>
 				</div>
 				<hr>
 				<div class="row">

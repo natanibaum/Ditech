@@ -1,7 +1,5 @@
-Create database ditech;
-use ditech;
 CREATE TABLE `Usuario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
   `nomeUsuario` varchar(255) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `ativo` varchar(255) NOT NULL,
@@ -25,14 +23,14 @@ CREATE TABLE `Reserva` (
   `sala_id` INTEGER NOT NULL,
   `hr_ini` time NOT NULL,
   `hr_id` Integer NOT NULL,
+  `usuario_id` Integer NOT NULL,
   PRIMARY KEY (`id`)
 );
+
 /*Adiciona chaves estrangeiras na tabela Reserva de relacionamento com as tabelas Usuário e Salas.*/
 ALTER TABLE `Reserva` ADD FOREIGN KEY (usuario_id) REFERENCES `Usuario` (`id`);
 ALTER TABLE `Reserva` ADD FOREIGN KEY (sala_id) REFERENCES `Salas` (`id`);
 ALTER TABLE `Reserva` ADD FOREIGN KEY (hr_id) REFERENCES `Horario` (`id`);
-/*Nova coluna para chave estrageira horario*/
-ALTER TABLE `Reserva` ADD hr_id Integer;
 /*Formata dados do banco para utf8*/
 ALTER TABLE `Salas` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ALTER TABLE `Usuario` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

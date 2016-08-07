@@ -48,7 +48,7 @@ $valida =0;
 		  </table>
 		  ";
 		if($valida!=1){
-			echo"<p class='bg-danger color-red'>Não há salas disponíveis!</p>";
+			echo"<p class='bg-danger color-red'>Não há salas ocupadas!</p>";
 		}
 		
 			

@@ -2,9 +2,10 @@
 require_once('includes/config.php');
 require_once('classes/sala.php');
 require_once('classes/reserva.php');
+require_once('classes/usuario.php');
 $sala = new SALA();
 $reserva= new Reserva();
-$database = new Database();
+$usuario = new Usuario();
 		//Popula variavel com o id do usuário que está na sessão
 		$userid= $_SESSION['id'];
 		$resultado = $sala->buscaSalasDisponiveis();	
@@ -18,9 +19,14 @@ $database = new Database();
 			<tbody>
 			<tr>
 			 ";
+			 if(empty($resultado)){
+						echo"<td>
+						<p class='bg-danger color-red'>Não há salas cadastradas.</p>
+						</td>";
+						}
 		//Coleção das salas disponiveis
 		foreach($resultado as $row)
-		{	 
+		{	$valida=1; 
 			$salaid=$row['id'];
 			echo"<tr>
 				<td>
@@ -47,14 +53,15 @@ $database = new Database();
 					echo $h['hr_ini']; 
 					echo"<br>";
 					echo $h['hr_fim'];
+				
 						echo"<br><br><button type='submit' class='btn btn-success'>Reservar</button>";
+					}
 					echo "</th>";
 				 echo"</form>";	
 					
 				}	
 				echo"</tr>
 				";			
-		}
 		
 		 echo"
 			</tr>

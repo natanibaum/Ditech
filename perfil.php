@@ -29,6 +29,9 @@ require('layout/header.php');
 				if(isset($_GET['action']) && $_GET['action'] == 'errodelete'){
 					echo "<h5 class='bg-danger color-red'>Você não pode excluir pois há uma reserva nesta sala!</h5>";
 				}
+				if(isset($_GET['action']) && $_GET['action'] == 'naopodereservar'){
+					echo "<h5 class='bg-danger color-red'>Seu usuário está desativado, portanto não pode reservar salas.</h5>";
+				}
 				//Se houver sucesso
 				if(isset($_GET['action']) && $_GET['action'] == 'cadastroFeitoSala'){
 					echo "<h5 class='bg-success color-green'>A sala foi cadastrada com sucesso!</h5>";
@@ -68,15 +71,15 @@ require('layout/header.php');
 	   <h3>Cadastro de Salas</h3>
 	   <br>
          <p>Cadastre as salas de reuniões da sua empresa.</p>
-			<form  role="form" method="post" action="cadastro-sala.php" autocomplete="off">
+			<form  name="cadastro" role="form" method="post" action="cadastro-sala.php" autocomplete="off"onsubmit="return validaSala();">
 				<hr>
 				<div class="form-group">
-					<input type="text" name="nome" id="nome" class="form-control input-lg" placeholder="Nome da Sala" tabindex="1">
+					<input type="text" name="nome" id="nome" class="form-control input-lg" placeholder="Nome da Sala" tabindex="1" required>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<div class="form-group">
-							<input type="number" name="numero" id="numero" class="form-control input-lg" placeholder="Número da Sala" tabindex="3">
+							<input type="number" name="numero" id="numero" class="form-control input-lg" placeholder="Número da Sala" tabindex="3" required>
 						</div>
 					</div>
 				</div>

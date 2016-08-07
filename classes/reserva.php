@@ -17,10 +17,23 @@ class RESERVA{
 		$stmt = $this->conn->prepare($sql);
 		return $stmt;
 	}
+	private function validaUsuarioInativo($id){
+		$stmt = $this->rodaQuery('SELECT nomeUsuario FROM Usuario WHERE id = :user And ativo="Não" ');
+		$stmt->execute(array(':user' => $id));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		if(!empty($row['nomeUsuario'])){
+			return true;
+		}
+		
+	}
 	//Método Cadastra o usuário no banco
 	public function InsereReserva($userid,$salaid,$hr_ini,$hrid){
 	
-		try {	
+	try {	
+		if($this->validaUsuarioInativo($userid)){
+		   header('Location: /ditech/perfil.php?action=naopodereservar');
+		}
+		else{
 			$stmt = $this->rodaQuery('INSERT INTO Reserva (usuario_id,sala_id,hr_ini,hr_id) VALUES (:usuario,:sala,:hrini,:hrid)');
 			$stmt->execute(array(
 				':usuario' => $userid,
@@ -30,7 +43,8 @@ class RESERVA{
 				
 			));
 			 return true;
-		}catch(PDOException $e) {
+		}
+	}catch(PDOException $e) {
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
 	 }

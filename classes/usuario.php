@@ -17,9 +17,9 @@ class USUARIO{
 		$stmt = $this->conn->prepare($sql);
 		return $stmt;
 	}
-	//Método privado da própria classe que valida se o usuario existe
-	public function validaUsuario($usuario){
-		$stmt = $this->rodaQuery("SELECT nomeUsuario FROM Usuario WHERE nomeUsuario = :user");
+	//Método que valida se o usuario existe
+	 public function validaUsuario($usuario){
+		$stmt = $this->rodaQuery('SELECT nomeUsuario FROM Usuario WHERE nomeUsuario = :user And ativo !="Não"');
 		$stmt->execute(array(':user' => $usuario));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!empty($row['nomeUsuario'])){
@@ -27,15 +27,31 @@ class USUARIO{
 		}
 		
 	}
+
 	//Método privado da própria classe que valida se o login do usuário
 	public function validaLogin($usuario,$senha){
-		$stmt = $this->rodaQuery('SELECT nomeUsuario,id FROM Usuario WHERE nomeUsuario = :user And senha = :senha And ativo !="Não"');
-		$stmt->execute(array(':user' => $usuario, ':senha'=> $senha));
+		//Verifica se o usuario é inativo
+		if($this->validaUsuarioInativo($usuario)){
+			header('Location: /ditech/index.php?action=Inativo');
+		}else{
+			$stmt = $this->rodaQuery('SELECT nomeUsuario,id FROM Usuario WHERE nomeUsuario = :user And senha = :senha And ativo !="Não"');
+			$stmt->execute(array(':user' => $usuario, ':senha'=> $senha));
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			if(!empty($row['nomeUsuario'])){
+				$_SESSION['usuario'] = $row['nomeUsuario'];
+				$_SESSION['id'] = $row['id'];
+				$_SESSION['loggedin'] = true;
+				return true;
+			}
+		}
+		
+	}
+	
+	private function validaUsuarioInativo($usuario){
+		$stmt = $this->rodaQuery('SELECT nomeUsuario FROM Usuario WHERE nomeUsuario = :user And ativo="Não" ');
+		$stmt->execute(array(':user' => $usuario));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!empty($row['nomeUsuario'])){
-			$_SESSION['usuario'] = $row['nomeUsuario'];
-			$_SESSION['id'] = $row['id'];
-			$_SESSION['loggedin'] = true;
 			return true;
 		}
 		
@@ -97,12 +113,12 @@ class USUARIO{
 	 }
 	 //Desativa o usuário e deleta as reservas que ele possui.
 	 public function ExcluiUsuario($id){
-		$this->RetiraReservas($id);
 		try {	
 			$stmt = $this->rodaQuery('Update Usuario set ativo = "Não" where id= :id');
 			$stmt->execute(array(
 				':id'=>$id
 			));
+		$this->RetiraReservas($id);
 			return true;
 		}catch(PDOException $e) {
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';

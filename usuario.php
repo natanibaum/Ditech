@@ -34,7 +34,7 @@ class USUARIO{
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if(!empty($row['nomeUsuario'])){
 			$_SESSION['usuario'] = $row['nomeUsuario'];
-			$_SESSION['memberID'] = $row['id'];
+			$_SESSION['id'] = $row['id'];
 			$_SESSION['loggedin'] = true;
 			return true;
 		}
@@ -59,6 +59,30 @@ class USUARIO{
 		}
 	 }
 	}
+		public function AtualizaUsuario($nome,$senha,$id){
+		try {	
+			$stmt = $this->rodaQuery('Update Usuario set nomeUsuario = :nome, senha= :senha where id= :id');
+			$stmt->execute(array(
+				':nome' => $nome,
+				':senha' => $senha,
+				':id'=>$id
+			));
+			return true;
+		}catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	 }
+	 public function ExcluiUsuario($id){
+		try {	
+			$stmt = $this->rodaQuery('Update Usuario set ativo = "Não" where id= :id');
+			$stmt->execute(array(
+				':id'=>$id
+			));
+			return true;
+		}catch(PDOException $e) {
+		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
+		}
+	 }
 
 //Função logoff
 	public function logout(){

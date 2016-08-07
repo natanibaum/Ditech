@@ -8,14 +8,18 @@ $usuario = new USUARIO();
 if(isset($_POST['btn-login'])){
 	$user = $_POST['usuario'];
 	$senha = $_POST['senha'];
-	//Instancia o método da classe usuário para validar o login
-	if($usuario->validaLogin($user,$senha)){ 
-		$_SESSION['usuario']= $user;
-		header('Location: perfil.php');
-		exit;
-	
-	}
+		if(empty($user) or (empty($senha))){
+	   echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/index.php?action=errologin'</script>";
+		}else{
+			//Instancia o método da classe usuário para validar o login
+			if($usuario->validaLogin($user,$senha)){ 
+				$_SESSION['usuario']= $user;
+				header('Location: perfil.php');
+				exit;
+			
+			}
 
+	}
 }
 
 
@@ -39,6 +43,10 @@ require('layout/header.php');
 				<?php
 				//Se ocorrer o falha no login
 				if(isset($_GET['action']) && $_GET['action'] == 'falhaLogin'){
+					echo "<h5 class='bg-danger color-red'>Você precisa preencher o usuário e senha corretamente para fazer o login!</h5>";
+				}
+				//Se ocorrer o falha no login
+				if(isset($_GET['action']) && $_GET['action'] == 'errologin'){
 					echo "<h5 class='bg-danger color-red'>Você precisa preencher o usuário e senha corretamente para fazer o login!</h5>";
 				}
 			    //Se ocorrer o cadastro feito

@@ -16,9 +16,8 @@ require('layout/header.php');
 ?>
 
 <div class="container form">
-  <h4>Ditech :. Sistema de Reservas .:</h4>
-  <a href='logout.php'>Sair</a><br>
-  <p> Olá <?php echo $_SESSION['usuario']; ?>!</p><br>
+  <h4>Ditech :. Sistema de Reservas .:</h4><br>
+  <a href='logout.php'>Sair do Sistema</a><br><br>
 <?php
 				//Se houver erros
 				if(isset($_GET['action']) && $_GET['action'] == 'salaExiste'){
@@ -26,6 +25,9 @@ require('layout/header.php');
 				}
 				if(isset($_GET['action']) && $_GET['action'] == 'formSalaErro'){
 					echo "<h5 class='bg-danger color-red'>Preencha corretamente o formulário de Cadastro de Salas!</h5>";
+				}
+				if(isset($_GET['action']) && $_GET['action'] == 'errodelete'){
+					echo "<h5 class='bg-danger color-red'>Você não pode excluir pois há uma reserva nesta sala!</h5>";
 				}
 				//Se houver sucesso
 				if(isset($_GET['action']) && $_GET['action'] == 'cadastroFeitoSala'){
@@ -43,11 +45,18 @@ require('layout/header.php');
 				if(isset($_GET['action']) && $_GET['action'] == 'deleteFeitoReserva'){
 					echo "<h5 class='bg-success color-green'>A sala foi excluída com sucesso!</h5>";
 				}
+				if(isset($_GET['action']) && $_GET['action'] == 'upFeitoPessoa'){
+					echo "<h5 class='bg-success color-green'>Usuário atualizado com sucesso!</h5>";
+				}
+				if(isset($_GET['action']) && $_GET['action'] == 'deleteUsuario'){
+					echo "<h5 class='bg-success color-green'>Após fazer logoff seu usuário estará desativado.</h5>";
+				}
  ?>
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home">Reservas Disponíveis</a></li>
     <li><a data-toggle="tab" href="#menu2">Registro de Salas</a></li>
-    <li><a data-toggle="tab" href="#menu3">Edições</a></li>
+    <li><a data-toggle="tab" href="#menu3">Edições de Salas</a></li>
+	 <li><a data-toggle="tab" href="#menu4">Edição de Usuário</a></li>
   </ul>
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
@@ -77,9 +86,14 @@ require('layout/header.php');
 		</div>
     </div>
     <div id="menu3" class="tab-pane fade">
-      <h3>Edições de Reservas, Salas e Usuário</h3>
+      <h3>Edições de Salas</h3>
 	  <br>
 		<?php include('view-salas.php');?>
+    </div>
+	 <div id="menu4" class="tab-pane fade">
+      <h3>Edição de Usuário</h3>
+	  <br>
+		<?php include('config-usuario.php');?>
     </div>
   </div>
 </div>

@@ -10,30 +10,16 @@ if(isset($_POST['submit'])){
 		$ativacao = 'Sim';
 		$user=$_POST['usuario'];
 		$senha=$_POST['senha'];
-		$senhaConfirma=$_POST['senhaConfirma'];
-
-	//Validações do formulário
-	if(strlen($user) < 3){
-		$error[] = 'O usuário informado é muito curto.';
-	} 
-
-	if(strlen($senha) < 3){
-		$error[] = 'A senha é muito curta.';
-	}
-
-	if(strlen($senhaConfirma) < 3){
-		$error[] = 'A senha confirmada é muito curta.';
-	}
-
-	if($senha!= $senhaConfirma){
-		$error[] = 'As senhas NÃO são iguais, favor preencha novamente.';
-	}
-
+		$senhaC=$_POST['senhaConfirma'];
+	   if((empty($user))or (empty($senha)) or (empty ($senhaC))){
+		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/cadastro.php?action=erro'</script>";
+		}
+		else{
 	//se estiver todo o formulário preenchido, efetua o cadastro
 	$usuario->InsereUsuario($user,$senha,$ativacao);
-		
-
+	}
 }
+	
 
 //Define o titulo da página
 $title = 'Ditech | Cadastrar-se';
@@ -42,13 +28,12 @@ $title = 'Ditech | Cadastrar-se';
 require('layout/header.php');
 ?>
 
-
 <div class="container">
 
 	<div class="row">
 
 	    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 form">
-			<form  role="form" method="post" action="" autocomplete="off">
+			<form  name="cadastro" role="form" method="post" action=""  autocomplete="off">
 				<h4>Sistema de Reservas</h4>
 				<p>Você já possui cadastro? <a href='/ditech/index.php'>Login</a></p>
 				<hr>
@@ -57,6 +42,9 @@ require('layout/header.php');
 				//Se houver erros
 				if(isset($_GET['action']) && $_GET['action'] == 'falha'){
 					echo "<h5 class='bg-danger color-red'>O usuário informado já está cadastrado!</h5>";
+				}
+				if(isset($_GET['action']) && $_GET['action'] == 'erro'){
+					echo "<h5 class='bg-danger color-red'>Favor, preencha os campos!</h5>";
 				}
 				?>
 

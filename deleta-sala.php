@@ -9,4 +9,7 @@ $id = $_POST['id'];
 		exit;
 	
 	}
+	else{
+		echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/perfil.php?action=errodelete'</script>";
+	}
 ?>

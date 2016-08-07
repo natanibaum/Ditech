@@ -41,7 +41,7 @@ class RESERVA{
 			$stmt->execute(array(
 				':id'=>$id
 			));
-			echo"<script language='javascript' type='text/javascript'>window.location.href='/ditech/perfil.php?action=deleteFeitoReserva'</script>";
+			return true;
 		}catch(PDOException $e) {
 		    echo '<p class="bg-danger">'.$e->getMessage().'</p>';
 		}
